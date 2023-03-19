@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('templates/header.ejs') %>
     <main>
         <h1>
             <%= titulo%>
@@ -14,10 +6,56 @@
         <p>
             <%= msg%>
         </p>
-        <% data.forEach(element => { %>
-            <img src="<%= element.image %>">
-           <% }) %>
-           
+
+        <% if (query) { %>
+            <div class="container">
+                <div class="busqueda">
+                    <form method="get" action="/search/">
+                        <input type="text" name="query">
+                        <input type="submit" value="buscar">
+
+
+
+                    </form>
+                </div>
+                <% data.forEach(element=> { %>
+                    <div class="containerItem" style="border: 1px solid black; height:400px; width:300px">
+                        <h2 class="">
+                            Título:
+                        </h2>
+                        <p class="">
+                            <%= element.title %><br>
+
+                        </p>
+                        <h2 class="">
+                            Año y dirección :
+                        </h2>
+                        <p class="">
+                            <%= element.description %>
+
+                        </p>
+                        <img alt="portada de la película" height="200px" width="150px" src="<%= element.image %>">
+                    </div>
+                    <% }) %>
+            </div>
+
+            <% } else { %>
+                <div class="busqueda">
+
+                    <form method="get" action="/search/">
+                        <input type="text" name="query">
+                        <input type="submit" value="buscar">
+
+
+
+                    </form>
+                </div>
+
+                <%} %>
+
+
+
+
+
     </main>
-</body>
-</html>
+    <%- include('templates/footer.ejs') %>
