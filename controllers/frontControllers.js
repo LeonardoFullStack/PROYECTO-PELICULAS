@@ -13,10 +13,26 @@ const getIndex = async (req, res,) => {
 }
 
 const getSearch = async (req, res) => {
-  const busqueda = req.query.query
+  const busqueda = req.query.query //esto hay que ponerlo bien
   if (busqueda) {
     const peticion = await consulta(busqueda)
-    console.log(peticion)
+
+    if (peticion.ok) {
+
+      res.render('search', {
+        titulo: `Resultados de ${busqueda}`,
+        msg: `Se han encontrado ${peticion.results.length} resultados`,
+        query:true,
+        data: peticion.results
+      })
+
+    } else {
+      res.render('error', {
+        error: 'Error',
+        msg: 'Error al obtener los resultados'
+      })
+    }
+
     res.render('search', {
       titulo: `Resultados de ${busqueda}`,
       msg: `Se han encontrado ${peticion.results.length} resultados`,
