@@ -1,63 +1,79 @@
 <%- include('templates/header.ejs') %>
-    <main>
-        <h1>
-            <%= titulo%>
-        </h1>
-        <p>
-            <%= msg%>
-        </p>
-
-        <% if (query) { %>
-            <div class="container">
-                <div class="busqueda">
-                    <form method="get" action="/search/">
-                        <input type="hidden" name="pag" value="1">
-                        <input type="text" name="query">
-                        <input type="submit" value="buscar">
 
 
 
-                    </form>
-                </div>
-                <% data.forEach(element=> { %>
-                    <div class="containerItem" style="border: 1px solid black; height:400px; width:300px">
-                        <h2 class="">
-                            Título:
-                        </h2>
-                        <p class="">
-                            <%= element.title %><br>
 
-                        </p>
-                        <h2 class="">
-                            Año y dirección :
-                        </h2>
-                        <p class="">
-                            <%= element.description %>
+            <main>
+                <h1>
+                    <%= titulo%>
+                </h1>
+                <p>
+                    <%= msg%>
+                </p>
 
-                        </p>
-                        <img alt="portada de la película" height="200px" width="150px" src="<%= element.image %>">
+                <% if (query) { %>
+                    <div class="container">
+                        <div class="busqueda">
+                            <form method="get" action="/search/">
+                                <input type="hidden" name="pag" value="1">
+                                <input type="text" name="query">
+                                <input type="submit" value="buscar">
+
+
+
+                            </form>
+                        </div>
+                        <% data.forEach(element=> { %>
+                            <div class="containerItem" style="border: 1px solid black; height:400px; width:300px">
+                                <h2 class="">
+                                    Título:
+                                </h2>
+                                <p class="">
+                                    <%= element.title %><br>
+
+                                </p>
+                                <h2 class="">
+                                    Año y dirección :
+                                </h2>
+                                <p class="">
+                                    <%= element.description %>
+
+                                </p>
+                                <img alt="portada de la película" height="200px" width="150px"
+                                    src="<%= element.image %>">
+                            </div>
+                            <% }) %>
                     </div>
-                    <% }) %>
-            </div>
 
-            <% } else { %>
-                <div class="busqueda">
+                    <% } else { %>
+                        <div class="busqueda">
 
-                    <form method="get" action="/search/">
-                        <input type="hidden" name="pag" value="1">
-                        <input type="text" name="query">
-                        <input type="submit" value="buscar">
+                            <form method="get" action="/search/">
+                                <input type="hidden" name="pag" value="1">
+                                <input type="text" name="query">
+                                <input type="submit" value="buscar">
 
 
 
-                    </form>
-                </div>
+                            </form>
+                        </div>
 
-                <%} %>
+                        <%} %>
+                        <h3>
+                            Páginas
+                        </h3>
+                        <% if (query) { %>
+                            <% for( let index = 1; index <= paginas; index++ ) { %>
+                                <a href="./?pag=<%= index %>&query=<%= busqueda %>">
+                                    <button>
+                                        <%= index %>
+                                    </button>
+                                </a>
+                            <% } %>
+                    
+                            <% } %>
 
 
 
-
-
-    </main>
-    <%- include('templates/footer.ejs') %>
+            </main>
+            <%- include('templates/footer.ejs') %>

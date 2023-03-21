@@ -21,7 +21,7 @@ const getSearch = async (req, res) => {
     const peticion = await consulta(busqueda)
 
     if (peticion) {
-
+        const paginas = Math.ceil(peticion.results.length / 8)
         const primerCorte = (pag-1) * 8
         const segundoCorte = (pag * 8)
         console.log(primerCorte, segundoCorte)
@@ -33,7 +33,9 @@ const getSearch = async (req, res) => {
         titulo: `Resultados de ${busqueda}`,
         msg: `Se han encontrado ${peticion.results.length} resultados`,
         query:true,
-        data: miniPeticion
+        data: miniPeticion,
+        paginas,
+        busqueda
       })
 
     } else {
