@@ -12,18 +12,28 @@ const getIndex = async (req, res,) => {
   })
 }
 
+
+
 const getSearch = async (req, res) => {
-  const busqueda = req.query.query //esto hay que ponerlo bien
+  const busqueda = req.query.query
+  const pag = req.query.pag //esto hay que ponerlo bien
   if (busqueda) {
     const peticion = await consulta(busqueda)
 
-    if (peticion.ok) {
+    if (peticion) {
+
+        const primerCorte = (pag-1) * 8
+        const segundoCorte = (pag * 8)
+        console.log(primerCorte, segundoCorte)
+        const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
+      
+      console.log(miniPeticion)
 
       res.render('search', {
         titulo: `Resultados de ${busqueda}`,
         msg: `Se han encontrado ${peticion.results.length} resultados`,
         query:true,
-        data: peticion.results
+        data: miniPeticion
       })
 
     } else {
@@ -33,12 +43,7 @@ const getSearch = async (req, res) => {
       })
     }
 
-    res.render('search', {
-      titulo: `Resultados de ${busqueda}`,
-      msg: `Se han encontrado ${peticion.results.length} resultados`,
-      query:true,
-      data: peticion.results
-    })
+
   } else {
     res.render('search', {
       titulo: `Búsqueda de películas`,
