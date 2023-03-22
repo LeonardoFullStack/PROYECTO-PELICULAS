@@ -1,4 +1,5 @@
 const express = require('express')
+const {conexion}=require('./helpers/dbConnect')
 
 var cors = require('cors')
 require('dotenv').config()
@@ -27,10 +28,11 @@ app.use(express.json());
 
 //*CONEXION
 
-
+conexion()
 
 //* RUTAS
 app.use('/',require('./routers/routerFront'))
+app.use('/api/peliculas',require('./routers/routerApi'))
 
 
 app.use((req,res) => {
