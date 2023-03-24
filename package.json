@@ -8,7 +8,11 @@
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.2",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "debug": "~3.2.7",
+    "express-openid-connect": "^2.12.0",
+    "http-errors": "~1.8.1",
+    "morgan": "~1.10.0"
   },
   "name": "proyecto-peliculas",
   "description": "Proyecto películas Esther Marcos Leonardo",
@@ -19,6 +23,7 @@
     "start": "node app.js",
     "dev": "nodemon app"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC"
