@@ -18,22 +18,18 @@ const getSearch = async (req, res) => {
   const busqueda = req.query.query
   const pag = req.query.pag //esto hay que ponerlo bien
   if (busqueda) {
-    const peticion = await consulta(busqueda)
+    const peticion = await consulta(busqueda, pag)
 
     if (peticion) {
-        const paginas = Math.ceil(peticion.results.length / 8)
-        const primerCorte = (pag-1) * 8
-        const segundoCorte = (pag * 8)
-        console.log(primerCorte, segundoCorte)
-        const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
+        const paginas = Math.ceil(peticion.totalResults / 10)
       
-      console.log(miniPeticion)
+      console.log(peticion.Search)
 
       res.render('search', {
         titulo: `Resultados de ${busqueda}`,
-        msg: `Se han encontrado ${peticion.results.length} resultados`,
+        msg: `Se han encontrado ${peticion.totalResults} resultados`,
         query:true,
-        data: miniPeticion,
+        data: peticion.Search,
         paginas,
         busqueda
       })

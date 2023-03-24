@@ -1,8 +1,8 @@
-const consulta = async (titulo) => {
+const consulta = async (titulo,pag) => {
 
     try {
 
-      let ruta=`https://imdb-api.com/en/API/SearchMovie/k_igkxkgas/${titulo}`
+      let ruta=`http://www.omdbapi.com/?apikey=fe94d7e4&s=${titulo}&page=${pag}&Type=movie`
 
       let peticion = await fetch(ruta,
         {

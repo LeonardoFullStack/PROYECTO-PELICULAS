@@ -1,8 +1,5 @@
 <%- include('templates/header.ejs') %>
-
-
-
-
+            
             <main>
                 <h1>
                     <%= titulo%>
@@ -29,18 +26,18 @@
                                     Título:
                                 </h2>
                                 <p class="">
-                                    <%= element.title %><br>
+                                    <%= element.Title %><br>
 
                                 </p>
                                 <h2 class="">
-                                    Año y dirección :
+                                    Año :
                                 </h2>
                                 <p class="">
-                                    <%= element.description %>
+                                    <%= element.Year %>
 
                                 </p>
                                 <img alt="portada de la película" height="200px" width="150px"
-                                    src="<%= element.image %>">
+                                    src="<%= element.Poster %>">
                             </div>
                             <% }) %>
                     </div>
@@ -60,7 +57,7 @@
 
                         <%} %>
                         <h3>
-                            Páginas
+                          <%= paginas %>  Páginas
                         </h3>
                         <% if (query) { %>
                             <% for( let index = 1; index <= paginas; index++ ) { %>
