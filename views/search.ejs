@@ -1,88 +1,76 @@
+
+
 <%- include('templates/header.ejs') %>
 
+        <% if (query) { %>
+            <section class="form-container">
+                <h2>
+                    Buscador de películas:
+                </h2>
+            <div class="container">
+                <div class="busqueda">
+                    <form class="search-f" method="get" action="/search/">
+                        <input type="hidden" name="pag" value="1">
+                        <input class="search-t" type="text" name="query" placeholder="Título">
+                        <input class="sub" type="submit" value="buscar">
+                    </form>
+            </section>
 
+    <section class="films-container">
+        <div class="grid-container">
 
+            <% data.forEach(element=> { %>
+                <div class="movie-card">
+                    <div class="info-section">
+                        <div class="movie-header">
+                            <div class="movie-img">
+                                <img class="img-mini" src="<%= element.image %>" alt="portada de la película">
 
-            <main>
-                <h1>
-                    <%= titulo%>
-                </h1>
-                <p>
-                    <%= msg%>
-                </p>
-
-                <% if (query) { %>
-                    <div class="container">
-                        <div class="busqueda">
-                            <form method="get" action="/search/">
-                                <input type="hidden" name="pag" value="1">
-                                <input type="text" name="query">
-                                <input type="submit" value="buscar">
-
-
-
-                            </form>
-                        </div>
-                        <% data.forEach(element=> { %>
-                            <div class="containerItem" style="border: 1px solid black; height:400px; width:300px">
-                                <h2 class="">
-                                    Título:
-                                </h2>
-                                <p class="">
-                                    <%= element.title %><br>
-
-                                </p>
-                                <h2 class="">
-                                    Año:
-                                </h2>
-                                <p class="">
-                                    <%= element.description %>
-
-                                </p>
-                                <p>
-                                    genero: <%= element.genres %>
-                                </p>
-                                <p>
-                                    duracion: <%= element.runtimeStr %>
-                                </p>
-                                <p>
-                                    Director: <%= element.starList %>
-                                </p>
-                                <img alt="portada de la película" height="200px" width="150px"
-                                    src="<%= element.image %>">
                             </div>
-                            <% }) %>
-                    </div>
-
-                    <% } else { %>
-                        <div class="busqueda">
-
-                            <form method="get" action="/search/">
-                                <input type="hidden" name="pag" value="1">
-                                <input type="text" name="query">
-                                <input type="submit" value="buscar">
-
-
-
-                            </form>
+                            <div class="datos">
+                                <h1>
+                                    <%`${element.title}`%>
+                                </h1>
+                                <h4>
+                                    <%`${element.description}`%>
+                                </h4>
+                                <span>Género duración (min)</span>
+                            </div>
                         </div>
+                        <div class="movie-buttons">
+                            <div class="false-button"><a href="/404.html">Aniadir a favoritos</a></div>
+                            <div class="false-button"><a href="/vistaDetalle.html">Ver más</a></div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
 
-                        <%} %>
-                        <h3>
-                            Páginas
-                        </h3>
-                        <% if (query) { %>
-                            <% for( let index = 1; index <= paginas; index++ ) { %>
-                                <a href="./?pag=<%= index %>&query=<%= busqueda %>">
-                                    <button>
-                                        <%= index %>
-                                    </button>
-                                </a>
+        <% } else { %>
+            <section class="form-container">
+                <h2>
+                    Buscador de películas:
+                </h2>
+                <form class="search-f" method="get" action="/search/">
+                    <input type="hidden" name="pag" value="1">
+                    <input class="search-t" type="text" name="query" placeholder="Título">
+                    <input class="sub" type="submit" value="buscar">
+                </form>
+            </section>
+
+            <%} %>
+                <h3>
+                    Páginas
+                </h3>
+                <% if (query) { %>
+                    <% for( let index=1; index <=paginas; index++ ) { %>
+                        <a href="./?pag=<%= index %>&query=<%= busqueda %>">
+                            <button>
+                                <%= index %>
+                            </button>
+                        </a>
+                        <% } %>
+
                             <% } %>
-                    
-                            <% } %>
-
-
-
-            </main>
-            <%- include('templates/footer.ejs') %>
+                                </main>
+                                
