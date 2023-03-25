@@ -4,11 +4,13 @@ const{check}=require('express-validator');
 const{validarInputs}=require('../middleware/validarInputs')
 
 
-const { getPeliculas,crearPelicula,actualizarPelicula,eliminarPelicula } = require('../controllers/apiControllers')
+const { getPeliculas,crearPelicula,actualizarPelicula,eliminarPelicula,getPelicula } = require('../controllers/apiControllers')
 
 
 
 router.get('/', getPeliculas)      //* GET
+
+router.get('/:id',getPelicula)
 
 router.post('/',[
     check('title','Falta el titulo de la pelicula').not().isEmpty(),

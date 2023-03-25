@@ -9,6 +9,7 @@ app.use(cors())
 
 
 //*SETEAR CARPETA ESTATICA
+
 app.use(express.static( __dirname+'/public'));
 
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 //* parse application/json
+
 app.use(express.json());
 
 
@@ -33,6 +35,7 @@ conexion()
 //* RUTAS
 app.use('/',require('./routers/routerFront'))
 app.use('/api/peliculas',require('./routers/routerApi'))
+app.use('/admin',require('./routers/routerAdmin'))
 
 
 app.use((req,res) => {

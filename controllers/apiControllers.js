@@ -8,17 +8,48 @@ const getPeliculas=async(req,res)=>{
        
       return  res.status(200).json({
             ok:true,
-            msg:'Obteniendo todos los servicios',
+            msg:'Obteniendo todas las peliculas',
             total_peliculas:peliculas.length,
             data:peliculas
         })
     } catch (error) {
         return  res.status(404).json({
             ok:false,
-            msg:'Error al obtener los servicios'
+            msg:'Error al obtener las peliculas '
         })
     } 
 }
+const getPelicula= async(req,res)=>{
+    
+    const id=req.params.id
+
+    try {
+        const unaPelicula=await Pelicula.findById(id) 
+
+        if(!unaPelicula){
+            return res.status(404).json({
+                ok:false,
+                msg:'el id esta mal'
+            })
+        }else{
+             return  res.status(200).json({
+                ok:true,
+                msg:'Obteniendo un servicio',
+                peliculaEncontrada:unaPelicula
+        })
+        }
+       
+    } catch (error) {
+        return  res.status(500).json({
+            ok:false,
+            msg:'Error al obtener el servicio solicitado'
+        })
+    }
+   
+}
+
+
+
 const crearPelicula = async (req, res) => {
 
     const nuevaPelicula = new Pelicula(req.body);
@@ -102,6 +133,7 @@ const eliminarPelicula= async(req,res)=>{
 
 module.exports={
     getPeliculas,
+    getPelicula,
     crearPelicula,
     actualizarPelicula,
     eliminarPelicula
