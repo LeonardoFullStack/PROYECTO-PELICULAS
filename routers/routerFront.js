@@ -9,4 +9,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', getIndex);
 router.get('/search/?', getSearch)
 
+
+
+
 module.exports = router
