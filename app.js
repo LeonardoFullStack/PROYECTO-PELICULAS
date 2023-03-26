@@ -1,6 +1,7 @@
 const express = require('express')
 const {conexion}=require('./helpers/dbConnect')
 
+
 var cors = require('cors')
 require('dotenv').config()
 const app = express()
@@ -34,9 +35,15 @@ conexion()
 
 //* RUTAS
 app.use('/',require('./routers/routerFront'))
+app.use('/admin',require('./routers/routerAdmin'))
+app.use('/signup',require('./routers/routerFront'))
+
+app.use('/logged', require('./routers/routerLogged'))
+
+
 app.use('/api/peliculas',require('./routers/routerApi'))
 app.use('/api/apiUsers',require('./routers/routerUsers'))
-app.use('/admin',require('./routers/routerAdmin'))
+
 
 
 app.use((req,res) => {

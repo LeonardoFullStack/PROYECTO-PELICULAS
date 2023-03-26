@@ -8,6 +8,10 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+input {
+    border: 1px solid black;
+}
+
 .flex-container {
     display: flex;
 

@@ -4,7 +4,7 @@ const queries={
 getUserEmail:`SELECT *
         FROM users
         WHERE email=$1`,
-createUser:`INSERT INTO users(name,password,email,image,isAdmin)
+createUser:`INSERT INTO users(name,password,email,image,isadmin)
             VALUES
             ($1, $2, $3, $4, $5)`,
  deleteUser:`DELETE

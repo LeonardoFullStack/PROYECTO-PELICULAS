@@ -1,0 +1,22 @@
+<%- include('templates/header.ejs') %>
+
+<main>
+    <h1>
+        <%= titulo%>
+    </h1>
+    <p>
+        <%= msg%>
+    </p>
+</main>
+
+<div>
+    <img alt="Tu imagen de perfil" src="<%= data[0].image %>">
+    <p>
+        Nombre: <%= data[0].name %>
+    </p>
+    <p>
+        Email: <%= data[0].email %>
+    </p>
+</div>
+
+<%- include('templates/footer.ejs') %>
