@@ -1,28 +1,68 @@
-const {createUserConnect, getUserConnect, getAllUsersConnect, deleteUserConnect, updateUserConnect} = require('../models/users')
+const { createUserConnect, getUserConnect, getAllUsersConnect, deleteUserConnect, updateUserConnect } = require('../models/users')
 const bcrypt = require('bcryptjs')
+const { generarJwt } = require('../helpers/jwt')
+const express = require('express')
+const app = express()
+const session = require('express-session')
 
-const checkLogin =async (req,res) => {
+app.use(session({
+    secret: 'secretismopuro',
+    resave: false,
+    saveUninitialized: true,
+}))
 
-    const userData = await getUserConnect(req.body.email)
-    
+const checkLogin = async (req, res) => {
+    let userData, passwordOk, token
+    try {
+        userData = await getUserConnect(req.body.email)
 
-    const passwordOk = bcrypt.compareSync(req.body.password, userData[0].password)
-    console.log(passwordOk)
-    res.render('index', {
-      titulo: 'Proyecto intermedio',
-      msg: 'Haz login para comenzar'
-    })
+
+        passwordOk = bcrypt.compareSync(req.body.password, userData[0].password)
+
+
+
+
+    } catch (error) {
+        res.render('index', {
+            titulo: 'Error al identificar',
+            msg: 'Prueba otra vez'
+        })
+    }
+
+    if (passwordOk) {
+
+        token = await generarJwt(userData[0].id, userData[0].name)
+
+        req.header.xtoken = token;
+
+        res.redirect('/logged/')
+        /* res.render('dashboard', {
+            titulo: 'Login correcto',
+            msg: `Bienvenido ${userData[0].name}`,
+            data:userData,
+            
+        }) */
+
+    } else if (!passwordOk) {
+        res.render('index', {
+            titulo: 'Error al identificar',
+            msg: 'Prueba otra vez'
+        })
+    }
+
+
+
 }
 
-const getUserByEmail  =async (req,res) => {
-    let data,msg
+const getUserByEmail = async (req, res) => {
+    let data, msg
     try {
-        let  email = req.query.email
+        let email = req.query.email
         if (email) {
-            data = await  getUserConnect(email)
+            data = await getUserConnect(email)
             msg = `datos del usuario ${email}`
         } else {
-            data= await getAllUsersConnect()
+            data = await getAllUsersConnect()
             msg = 'Todos los usuarios'
         }
         res.status(200).json({
@@ -40,22 +80,23 @@ const getUserByEmail  =async (req,res) => {
 
 
 
-const createUser =async (req,res) => {
-    let { name, password, email, image, isAdmin } = req.body
+const createUser = async (req, res) => {
+    let { name, password, email, image } = req.body
     let salt = bcrypt.genSaltSync(10);
     password = bcrypt.hashSync(password, salt)
     console.log(password)
 
     try {
-        const data = await createUserConnect(name, password, email, image, isAdmin)
-        res.status(200).json({
-            ok: true,
-            msg: `el usuario ${name} ha sido creado`,
-            data: {
+        const data = await createUserConnect(name, password, email, image)
+        console.log(image)
+        res.render('dashboard', {
+            titulo: 'usuario creado.Bienvenido!',
+            msg: 'Mi perfil',
+            data: [{
                 name,
                 email,
                 image
-            }
+            }]
         })
     } catch (error) {
         console.log(error)
@@ -66,7 +107,7 @@ const createUser =async (req,res) => {
     }
 }
 
-const deleteUser = async(req,res) => {
+const deleteUser = async (req, res) => {
     console.log('holi?')
     try {
         const data = await deleteUserConnect(req.params.email)
@@ -82,7 +123,7 @@ const deleteUser = async(req,res) => {
     }
 }
 
-const updateUser =async (req,res) => {
+const updateUser = async (req, res) => {
     let { name, password, email, image } = req.body
     const oldMail = req.params.email
     let salt = bcrypt.genSaltSync(10);

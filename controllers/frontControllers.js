@@ -12,6 +12,13 @@ const getIndex = async (req, res,) => {
   })
 }
 
+const getSignup = (req,res) => {
+  res.render('signup', {
+    titulo: 'Crear usuario',
+    msg: 'Crea tu usuario en la API de MLE, son ya mas de quinientos billones!'
+  })
+}
+
 
 
 const getSearch = async (req, res) => {
@@ -57,5 +64,6 @@ const getSearch = async (req, res) => {
 
 module.exports = {
   getIndex,
+  getSignup,
   getSearch
 }

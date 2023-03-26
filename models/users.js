@@ -38,9 +38,9 @@ const getAllUsersConnect =async () => {
     return result
 }
 
-const createUserConnect =async (name, password, email, image, isAdmin) => {
+const createUserConnect =async (name, password, email, image) => {
 let client,respuesta;
-    
+    const isAdmin=false;
     try {
         client = await pool.connect()
         const data = await client.query(queries.createUser, [name,password,email,image, isAdmin])
