@@ -3,7 +3,8 @@ const router = express.Router()
 const { check } = require('express-validator')
 const { validarInputs } = require('../middleware/validarInputs')
 
-const { createUser, getUserByEmail, deleteUser, updateUser } = require('../controllers/apiUsersControllers')
+
+const { createUser, getUserByEmail, deleteUser, updateUser, viewMovie } = require('../controllers/apiUsersControllers')
 
 router.get('/', getUserByEmail)
 router.post('/',/* [
@@ -12,6 +13,7 @@ router.post('/',/* [
     check('pass', 'La contraseña tiene que tener mínimo 4 caracteres').isLength({min:4}),
     validarInputs
 ], */ createUser)
+
 router.delete('/:email',/*  [
     check('email', 'el email no es válido').not().isEmpty().isEmail(),
     validarInputs

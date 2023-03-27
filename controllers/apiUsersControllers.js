@@ -1,15 +1,13 @@
 const { createUserConnect, getUserConnect, getAllUsersConnect, deleteUserConnect, updateUserConnect } = require('../models/users')
 const bcrypt = require('bcryptjs')
+const cookieParser = require('cookie-parser')
 const { generarJwt } = require('../helpers/jwt')
+const { consulta } = require('../helpers/fetchImdb')
 const express = require('express')
 const app = express()
-const session = require('express-session')
 
-app.use(session({
-    secret: 'secretismopuro',
-    resave: false,
-    saveUninitialized: true,
-}))
+app.use(cookieParser())
+
 
 const checkLogin = async (req, res) => {
     let userData, passwordOk, token
@@ -18,7 +16,7 @@ const checkLogin = async (req, res) => {
 
 
         passwordOk = bcrypt.compareSync(req.body.password, userData[0].password)
-
+       
 
 
 
@@ -32,16 +30,16 @@ const checkLogin = async (req, res) => {
     if (passwordOk) {
 
         token = await generarJwt(userData[0].id, userData[0].name)
+        
+        
+        res.cookie('xtoken', token)
 
-        req.header.xtoken = token;
-
-        res.redirect('/logged/')
-        /* res.render('dashboard', {
+        res.render('dashboard', {
             titulo: 'Login correcto',
             msg: `Bienvenido ${userData[0].name}`,
             data:userData,
             
-        }) */
+        })
 
     } else if (!passwordOk) {
         res.render('index', {
@@ -51,6 +49,15 @@ const checkLogin = async (req, res) => {
     }
 
 
+
+}
+
+const logout = (req,res) => {
+    res.cookie('x-token', '')
+    res.render('index', {
+        titulo: 'Sesión cerrada',
+        msg: 'Haz login para comenzar'
+    })
 
 }
 
@@ -78,6 +85,17 @@ const getUserByEmail = async (req, res) => {
     }
 }
 
+const viewMovie =async (req,res) => {
+    const idMovie = req.params.id
+    const peticion = await consulta(null, idMovie)
+    console.log(peticion)
+    res.render('viewOne', {
+        titulo: `${peticion.title}`,
+        msg: 'Vista al detalle de la película',
+        data:peticion
+      })
+}
+
 
 
 const createUser = async (req, res) => {
@@ -88,15 +106,15 @@ const createUser = async (req, res) => {
 
     try {
         const data = await createUserConnect(name, password, email, image)
-        console.log(image)
+        const userData = await getUserConnect(email)
+        token = await generarJwt(userData[0].id, userData[0].name)
+
+        res.cookie('xtoken', token)
+        
         res.render('dashboard', {
             titulo: 'usuario creado.Bienvenido!',
             msg: 'Mi perfil',
-            data: [{
-                name,
-                email,
-                image
-            }]
+            data: userData
         })
     } catch (error) {
         console.log(error)
@@ -153,5 +171,7 @@ module.exports = {
     getUserByEmail,
     deleteUser,
     updateUser,
-    checkLogin
+    checkLogin,
+    logout,
+    viewMovie
 }
