@@ -1,18 +1,19 @@
 const express = require('express')
 const { consulta } = require('../helpers/fetchImdb')
+const { validarJwt } = require('../middleware/validarJwt')
 
 
 const getIndex = async (req, res,) => {
 
 
+      res.render('index', {
+      titulo: 'Proyecto intermedio',
+      msg: 'Haz login para comenzar'
+    })
 
-  res.render('index', {
-    titulo: 'Proyecto intermedio',
-    msg: 'Haz login para comenzar'
-  })
 }
 
-const getSignup = (req,res) => {
+const getSignup = (req, res) => {
   res.render('signup', {
     titulo: 'Crear usuario',
     msg: 'Crea tu usuario en la API de MLE, son ya mas de quinientos billones!'
@@ -28,18 +29,18 @@ const getSearch = async (req, res) => {
     const peticion = await consulta(busqueda)
 
     if (peticion) {
-        const paginas = Math.ceil(peticion.results.length / 12)
-        const primerCorte = (pag-1) * 12
-        const segundoCorte = (pag * 12)
-        console.log(primerCorte, segundoCorte)
-        const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
-      
+      const paginas = Math.ceil(peticion.results.length / 12)
+      const primerCorte = (pag - 1) * 12
+      const segundoCorte = (pag * 12)
+      console.log(primerCorte, segundoCorte)
+      const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
+
       console.log(miniPeticion)
 
       res.render('search', {
         titulo: `Resultados de ${busqueda}`,
         msg: `Se han encontrado ${peticion.results.length} resultados`,
-        query:true,
+        query: true,
         data: miniPeticion,
         paginas,
         busqueda
@@ -57,7 +58,7 @@ const getSearch = async (req, res) => {
     res.render('search', {
       titulo: `Búsqueda de películas`,
       msg: `Haz aquí tu búsqueda`,
-      query:false
+      query: false
     })
   }
 }

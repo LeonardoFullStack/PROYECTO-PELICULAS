@@ -38,7 +38,7 @@ app.use('/',require('./routers/routerFront'))
 app.use('/admin',require('./routers/routerAdmin'))
 app.use('/signup',require('./routers/routerFront'))
 
-app.use('/logged', require('./routers/routerLogged'))
+
 
 
 app.use('/api/peliculas',require('./routers/routerApi'))

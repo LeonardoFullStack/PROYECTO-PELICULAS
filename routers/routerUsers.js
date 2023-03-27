@@ -3,6 +3,7 @@ const router = express.Router()
 const { check } = require('express-validator')
 const { validarInputs } = require('../middleware/validarInputs')
 
+
 const { createUser, getUserByEmail, deleteUser, updateUser } = require('../controllers/apiUsersControllers')
 
 router.get('/', getUserByEmail)

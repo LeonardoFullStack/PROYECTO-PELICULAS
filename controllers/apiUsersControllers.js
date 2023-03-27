@@ -3,13 +3,7 @@ const bcrypt = require('bcryptjs')
 const { generarJwt } = require('../helpers/jwt')
 const express = require('express')
 const app = express()
-const session = require('express-session')
 
-app.use(session({
-    secret: 'secretismopuro',
-    resave: false,
-    saveUninitialized: true,
-}))
 
 const checkLogin = async (req, res) => {
     let userData, passwordOk, token
@@ -35,13 +29,13 @@ const checkLogin = async (req, res) => {
 
         req.header.xtoken = token;
 
-        res.redirect('/logged/')
-        /* res.render('dashboard', {
+        /* res.redirect('/dashboard') */
+        res.render('dashboard', {
             titulo: 'Login correcto',
             msg: `Bienvenido ${userData[0].name}`,
             data:userData,
             
-        }) */
+        })
 
     } else if (!passwordOk) {
         res.render('index', {
@@ -51,6 +45,17 @@ const checkLogin = async (req, res) => {
     }
 
 
+
+}
+
+const logout = (req,res) => {
+    req.header.xtoken = ''
+    req.header.name = ''
+    req.header.id = ''
+    res.render('index', {
+        titulo: 'Sesión cerrada',
+        msg: 'Haz login para comenzar'
+    })
 
 }
 
@@ -88,15 +93,14 @@ const createUser = async (req, res) => {
 
     try {
         const data = await createUserConnect(name, password, email, image)
-        console.log(image)
+        const userData = await getUserConnect(email)
+        token = await generarJwt(userData[0].id, userData[0].name)
+
+        req.header.xtoken = token;
         res.render('dashboard', {
             titulo: 'usuario creado.Bienvenido!',
             msg: 'Mi perfil',
-            data: [{
-                name,
-                email,
-                image
-            }]
+            data: userData
         })
     } catch (error) {
         console.log(error)
@@ -153,5 +157,6 @@ module.exports = {
     getUserByEmail,
     deleteUser,
     updateUser,
-    checkLogin
+    checkLogin,
+    logout
 }
