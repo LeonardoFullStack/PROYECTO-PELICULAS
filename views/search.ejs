@@ -28,18 +28,30 @@
 
                             </div>
                             <div class="datos">
-                                <h1>
-                                    <%`${element.title}`%>
-                                </h1>
+                                <h2>
+                                    <%=`${element.title}`%>
+                                </h2>
                                 <h4>
-                                    <%`${element.description}`%>
+                                    <%=`${element.description}`%>
+                                </h4>
+                                <span>Año</span>
+                                <h4>
+                                    <%=`${element.runtimeStr}`%>
+                                </h4>
+                                <span> duración (min)</span>
+                                <h4>
+                                    <%=`${element.stars}`%>
+                                </h4>
+                                <span>Dirección y reparto</span>
+                                <h4>
+                                    <%=`${element.genres}`%>
                                 </h4>
                                 <span>Género duración (min)</span>
                             </div>
                         </div>
                         <div class="movie-buttons">
-                            <div class="false-button"><a href="/404.html">Aniadir a favoritos</a></div>
-                            <div class="false-button"><a href="/vistaDetalle.html">Ver más</a></div>
+                            <div class="false-button"><a href="/search/add/<%= element.id %>">Aniadir a favoritos</a></div>
+                            <div class="false-button"><a href="view/<%= element.id %>">Ver más</a></div>
                         </div>
                     </div>
                 </div>

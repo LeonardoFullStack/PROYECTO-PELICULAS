@@ -1,33 +1,39 @@
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 
-const validarJwt = (req,res,next) => {
-    const token = req.header.xtoken
+
+const validarJwt = (req, res, next) => {
     
-    
-    if (!token) {
-        return res.status(401).json({
-            ok: false,
-            msg: 'No hay token en la petición'
-        })
-    }
+       
+        const {xtoken} = req.cookies
+        console.log(xtoken)
 
-    try {
-         
-        const payload =jwt.verify(token, process.env.JWT_SECRET_KEY);
-        console.log(payload.uid)
-        req.headers.id = payload.uid
-        req.headers.name = payload.name 
+        if (!xtoken) {
+            return res.render('index', {
+                titulo: 'No has iniciado sesión',
+                msg: 'Inicia sesión para continuar'
+            })
+        }
 
-    } catch (error) {
-        return res.status(401).json({ //aqui hay que poner un render en vez del return mejor
-            ok: false,
-            msg: 'Token no válido'
-        })
-    }
+        try {
 
-    next()
-   
+            const payload = jwt.verify(xtoken, process.env.JWT_SECRET_KEY);
+            
+            req.header.id = payload.uid
+            req.header.name = payload.name
+            
+
+        } catch (error) {
+            return res.status(401).json({ //aqui hay que poner un render en vez del return mejor
+                ok: false,
+                msg: 'Token no válido'
+            })
+        }
+
+        next()
+
+
 }
 
 module.exports = {

@@ -81,11 +81,26 @@ const updateUserConnect =async (emailViejo, name, password, email, image) => {
     return data.rows
 }
 
+const addMovieConnect =async (idMovie, idUsers,title, image, genres, year, runtimeStr, directors) => {
+    let data, client
+    try {
+        client = await pool.connect()
+        data = await client.query(queries.addMovie, [idMovie, idUsers,title, image, genres, year, runtimeStr, directors])
+    } catch (error) {
+        throw error
+    }finally {
+
+        client.release()
+    }
+    return data
+}
+
 
 module.exports = {
     createUserConnect,
     getUserConnect,
     getAllUsersConnect,
     deleteUserConnect,
-    updateUserConnect
+    updateUserConnect,
+    addMovieConnect
 }

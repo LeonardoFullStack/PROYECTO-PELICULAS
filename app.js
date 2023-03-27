@@ -1,5 +1,6 @@
 const express = require('express')
 const {conexion}=require('./helpers/dbConnect')
+const cookieParser = require('cookie-parser')
 
 
 var cors = require('cors')
@@ -27,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 //* parse application/json
 
 app.use(express.json());
-
+app.use(cookieParser())
 
 //*CONEXION
 
@@ -38,7 +39,8 @@ app.use('/',require('./routers/routerFront'))
 app.use('/admin',require('./routers/routerAdmin'))
 app.use('/signup',require('./routers/routerFront'))
 
-app.use('/logged', require('./routers/routerLogged'))
+
+
 
 
 app.use('/api/peliculas',require('./routers/routerApi'))
