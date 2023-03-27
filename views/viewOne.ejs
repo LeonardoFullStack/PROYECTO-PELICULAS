@@ -1,0 +1,16 @@
+<%- include('templates/header.ejs') %>
+
+
+<h1> <%= data.title %> </h1>  
+<p> <b>Año:</b>  <%=data.year %> </p>
+<p> <b>Director:</b> <%= data.directors %></p>
+<p> <b> Genero:</b><%= data.genres %></p> 
+<p> <b>Duracion:</b> <%=data.runtimeStr  %></p>
+<p> <b>Sinopsis:</b> <%= data.plot %></p>
+<p> <b>Reparto:</b> <%= data.stars %></p>
+<p> <b>Rating:</b> <%= data.imDbRating %></p>
+
+<img class="img-mini" src="<%= data.image %>" alt="portada de la película">
+
+
+<%- include('templates/footer.ejs') %>

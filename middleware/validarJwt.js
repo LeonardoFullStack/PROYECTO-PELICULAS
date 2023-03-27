@@ -1,12 +1,15 @@
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+
 
 
 const validarJwt = (req, res, next) => {
+    
+       
+        const {xtoken} = req.cookies
+        console.log(xtoken)
 
-        const token = req.header.xtoken
-
-
-        if (!token) {
+        if (!xtoken) {
             return res.render('index', {
                 titulo: 'No has iniciado sesión',
                 msg: 'Inicia sesión para continuar'
@@ -15,10 +18,11 @@ const validarJwt = (req, res, next) => {
 
         try {
 
-            const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
-            console.log(payload.uid)
+            const payload = jwt.verify(xtoken, process.env.JWT_SECRET_KEY);
+            
             req.header.id = payload.uid
             req.header.name = payload.name
+            
 
         } catch (error) {
             return res.status(401).json({ //aqui hay que poner un render en vez del return mejor

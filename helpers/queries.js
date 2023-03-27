@@ -12,7 +12,10 @@ createUser:`INSERT INTO users(name,password,email,image,isadmin)
             WHERE email=$1`,
 updateUser:`UPDATE users
             SET name=$2 , password=$3 , email=$4 , image =$5
-            WHERE email=$1`
+            WHERE email=$1`,
+addMovie:`INSERT INTO favs(idfilms,idUsers,title,image,gender,year,length,direction)
+          VALUES
+          ($1, $2, $3, $4, $5, $6, $7, $8) `
  
 }
 
