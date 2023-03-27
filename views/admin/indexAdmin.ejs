@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movies</title>
+</head>
+<body>
+    <header style="background-color: blueviolet; height: 200px;">
+        <h1>
+            soy el header
+        </h1>
+    </header>
+
+<section>
+    <a href="http://localhost:3000/admin/createMovie">Crear nueva pelicula</a>
+    <% peliculas.forEach(element => { %>
+        <img src="<%= element.image %>" alt="">
+        <p> <%= element.title %></p>
+        <a class="button" href=<%=`http://localhost:3000/admin/editMovies/${element._id}`%> >Actualizar</a>
+        <a class="button" href="<%=`http://localhost:3000/admin/removeMovie/${element._id}`%>">Eliminar</a>
+    <% }) %>
+    
+</section>
+    
+<footer style="background-color: blueviolet; height: 200px;">
+    <h2>
+        soy el footer queloque
+    </h2>
+</footer>
+
+</body>
+</html>
