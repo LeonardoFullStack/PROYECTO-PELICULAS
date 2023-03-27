@@ -4,12 +4,14 @@ const { consulta } = require('../helpers/fetchImdb')
 
 const getIndex = async (req, res,) => {
 
-
-
   res.render('index', {
     titulo: 'Proyecto intermedio',
     msg: 'Haz login para comenzar'
   })
+}
+
+const getDashboard = async (req,res) =>{
+  res.render('dashboard')
 }
 
 const getSignup = (req,res) => {
@@ -64,6 +66,7 @@ const getSearch = async (req, res) => {
 
 module.exports = {
   getIndex,
+  getDashboard,
   getSignup,
   getSearch
 }
