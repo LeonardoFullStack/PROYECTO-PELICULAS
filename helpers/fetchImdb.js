@@ -1,9 +1,16 @@
-const consulta = async (titulo) => {
+const consulta = async (titulo,id) => {
 
     try {
+      let ruta
 
-      let ruta=`https://imdb-api.com/API/AdvancedSearch/k_igkxkgas/?title=${titulo}` //todo meter la key en un env
+      if(id){
+        ruta=`https://imdb-api.com/en/API/Title/k_igkxkgas/${id}`
+      }else
+      {
+         ruta=`https://imdb-api.com/API/AdvancedSearch/k_igkxkgas/?title=${titulo}` //todo meter la key en un env
 
+      }
+     
       let peticion = await fetch(ruta,
         {
           method: "GET",

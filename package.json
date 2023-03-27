@@ -8,7 +8,8 @@
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.2",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "puppeteer": "^19.8.0"
   },
   "name": "proyecto-peliculas",
   "description": "Proyecto películas Esther Marcos Leonardo",
@@ -16,7 +17,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "node helpers/scrapping3.js",
     "dev": "nodemon app"
   },
   "keywords": [],

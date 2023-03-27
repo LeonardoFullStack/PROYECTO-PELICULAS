@@ -29,17 +29,18 @@
                             </div>
                             <div class="datos">
                                 <h1>
-                                    <%`${element.title}`%>
+                                    <%=`${element.title}`%>
                                 </h1>
                                 <h4>
-                                    <%`${element.description}`%>
+                                    <%=`${element.description}`%>
+                                    <%=`${element.starList[1].name}` %>
                                 </h4>
-                                <span>Género duración (min)</span>
+                                <span><%= element.genres %>  (<%= element.runtimeStr %>)</span>
                             </div>
                         </div>
                         <div class="movie-buttons">
-                            <div class="false-button"><a href="/404.html">Aniadir a favoritos</a></div>
-                            <div class="false-button"><a href="/vistaDetalle.html">Ver más</a></div>
+                            <div class="false-button"><a href="/404.html">Anadir a favoritos</a></div>
+                            <div class="false-button"><a href=<%=`http://localhost:3000/search/${element.id}`%> >Ver mas</a></div>
                         </div>
                     </div>
                 </div>

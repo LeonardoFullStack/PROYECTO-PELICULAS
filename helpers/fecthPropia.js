@@ -2,7 +2,7 @@ const urlBase='http://localhost:3000/api'
 
 
 
-const consulta = async(url,method,body) => {
+const consulta = async(url,method="get",body) => {
 
     let options={}
     if(method=='post' || method=='put'){

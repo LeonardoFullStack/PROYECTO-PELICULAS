@@ -15,6 +15,7 @@ const getIndex = async (req, res,) => {
 
 
 const getSearch = async (req, res) => {
+
   const busqueda = req.query.query
   const pag = req.query.pag //esto hay que ponerlo bien
   if (busqueda) {
@@ -24,10 +25,10 @@ const getSearch = async (req, res) => {
         const paginas = Math.ceil(peticion.results.length / 12)
         const primerCorte = (pag-1) * 12
         const segundoCorte = (pag * 12)
-        console.log(primerCorte, segundoCorte)
+        
         const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
       
-      console.log(miniPeticion)
+      
 
       res.render('search', {
         titulo: `Resultados de ${busqueda}`,
@@ -55,7 +56,24 @@ const getSearch = async (req, res) => {
   }
 }
 
+
+
+const vistaDetalles=async (req, res)=>{
+
+  let id=req.params.id
+
+  const peticion = await consulta(null,id)
+
+  console.log(peticion);
+
+  res.render('vistaDetalle',{
+    msg:'estos son los detalles',
+    detalles:peticion
+  })
+}
+
 module.exports = {
   getIndex,
-  getSearch
+  getSearch,
+  vistaDetalles
 }
