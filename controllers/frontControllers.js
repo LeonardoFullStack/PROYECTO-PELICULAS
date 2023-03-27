@@ -6,15 +6,18 @@ const {addMovieConnect}  = require('../models/users')
 
 const getIndex = async (req, res,) => {
 
-
-      res.render('index', {
-      titulo: 'Proyecto intermedio',
-      msg: 'Haz login para comenzar'
-    })
-
+  res.render('index', {
+    titulo: 'Proyecto intermedio',
+    msg: 'Haz login para comenzar'
+  })
 }
 
-const getSignup = (req, res) => {
+const getDashboard = async (req,res) =>{
+  res.render('dashboard')
+}
+
+const getSignup = (req,res) => {
+
   res.render('signup', {
     titulo: 'Crear usuario',
     msg: 'Crea tu usuario en la API de MLE, son ya mas de quinientos billones!'
@@ -79,6 +82,7 @@ const getSearch = async (req, res) => {
 
 module.exports = {
   getIndex,
+  getDashboard,
   getSignup,
   getSearch,
   addMovie
