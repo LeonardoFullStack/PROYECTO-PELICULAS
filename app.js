@@ -1,5 +1,7 @@
 const express = require('express')
 const {conexion}=require('./helpers/dbConnect')
+const cookieParser = require('cookie-parser')
+
 
 var cors = require('cors')
 require('dotenv').config()
@@ -26,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 //* parse application/json
 
 app.use(express.json());
-
+app.use(cookieParser())
 
 //*CONEXION
 
@@ -34,8 +36,16 @@ conexion()
 
 //* RUTAS
 app.use('/',require('./routers/routerFront'))
-app.use('/api/peliculas',require('./routers/routerApi'))
 app.use('/admin',require('./routers/routerAdmin'))
+app.use('/signup',require('./routers/routerFront'))
+
+
+
+
+
+app.use('/api/peliculas',require('./routers/routerApi'))
+app.use('/api/apiUsers',require('./routers/routerUsers'))
+
 
 
 app.use((req,res) => {
