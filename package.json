@@ -9,7 +9,8 @@
     "express-session": "^1.17.3",
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.0.2",
+    "puppeteer": "^19.8.0",
     "nodemon": "^2.0.22",
     "pg": "^8.10.0",
     "session": "^0.1.0"
@@ -20,7 +21,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "node helpers/scrapping3.js",
     "dev": "nodemon app"
   },
   "keywords": [],

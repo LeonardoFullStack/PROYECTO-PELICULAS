@@ -63,12 +63,14 @@ const addMovie =async  (req,res) => {
 
 
 const getSearch = async (req, res) => {
+
   const busqueda = req.query.query
   const pag = req.query.pag //esto hay que ponerlo bien
   if (busqueda) {
     const peticion = await consulta(busqueda)
 
     if (peticion) {
+
       const paginas = Math.ceil(peticion.results.length / 12)
       const primerCorte = (pag - 1) * 12
       const segundoCorte = (pag * 12)
@@ -76,6 +78,7 @@ const getSearch = async (req, res) => {
       const miniPeticion = peticion.results.slice(primerCorte, segundoCorte);
 
       
+
 
       res.render('search', {
         titulo: `Resultados de ${busqueda}`,
@@ -101,6 +104,22 @@ const getSearch = async (req, res) => {
       query: false
     })
   }
+}
+
+
+
+const vistaDetalles=async (req, res)=>{
+
+  let id=req.params.id
+
+  const peticion = await consulta(null,id)
+
+  console.log(peticion);
+
+  res.render('vistaDetalle',{
+    msg:'estos son los detalles',
+    detalles:peticion
+  })
 }
 
 module.exports = {

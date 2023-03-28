@@ -12,7 +12,7 @@ POST http://localhost:3000/api/peliculas/ crear una nueva pelicula (title,image,
 PUT http://localhost:3000/api/peliculas/ID  Actualizar pelicula 
 
 
-"http://localhost:3000/admin/editMovie/<%=${pelicula.peliculaEncontrada._id}%>" 
+
 
 
 
