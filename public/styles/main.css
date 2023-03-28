@@ -7,6 +7,23 @@
     outline: none;
     font-family: 'Roboto Condensed', sans-serif;
 }
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
 
 .flex-container {
     display: flex;
