@@ -29,24 +29,13 @@
                             </div>
                             <div class="datos"
                                 <h2>
-                                    <%=`${element.title}`%>
+                                    <%=`${element.title}`%> <%=`${element.description}`%>
                                 </h2>
-                                <h4>
-                                    <%=`${element.description}`%>
-                                </h4>
-                                <span>Año</span>
-                                <h4>
-                                    <%=`${element.runtimeStr}`%>
-                                </h4>
-                                <span> duración (min)</span>
+                                <span><%=`${element.runtimeStr}`%></span>
                                 <h4>
                                     <%=`${element.stars}`%>
                                 </h4>
-                                <span>Dirección y reparto</span>
-                                <h4>
-                                    <%=`${element.genres}`%>
-                                </h4>
-                                <span><%=`${element.genres} ${element.runtimeStr} `%></span>
+                                <span><%=`${element.genres}`%></span>
                             </div>
                         </div>
                         <div class="movie-buttons">

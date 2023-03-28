@@ -11,7 +11,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22",
-    "pg": "^8.10.0"
+    "pg": "^8.10.0",
+    "session": "^0.1.0"
   },
   "name": "proyecto-peliculas",
   "description": "Proyecto películas Esther Marcos Leonardo",
