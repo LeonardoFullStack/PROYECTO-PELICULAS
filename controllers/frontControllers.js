@@ -1,7 +1,7 @@
 const express = require('express')
 const { consulta } = require('../helpers/fetchImdb')
 const { validarJwt } = require('../middleware/validarJwt')
-const {addMovieConnect}  = require('../models/users')
+const {addMovieConnect, checkMovie, checkMyMovies, removeMovieConnect}  = require('../models/users')
 
 
 const getIndex = async (req, res,) => {
@@ -20,18 +20,41 @@ const getSignup = (req, res) => {
     msg: 'Crea tu usuario en la API de MLE, son ya mas de quinientos billones!'
   })
 }
+
+const myMovies =async (req,res) => {
+  const id = req.header.id
+  const myMovies = await checkMyMovies(id)
+  console.log(myMovies)
+  res.render('myMovies', {
+    titulo: `Mis películas`,
+    msg: `Consulta aquí tus películas`,
+    data:myMovies
+  })
+}
+
+const removeMovie  =async (req,res) => {
+  const idUser = req.header.id
+  const idMovie = req.params.id
+  const remove = await removeMovieConnect(idUser, idMovie)
+  res.redirect('/movies')
+}
 //falta gestión de errores, y no repetir peliculas. Y corregir el redirect
 const addMovie =async  (req,res) => {
-  console.log(req.header.id,'el idé')
+
   const idMovie=req.params.id
   const idUsers = req.header.id
-
-  const peticion = await consulta(null, idMovie)
+  console.log(idMovie,idUsers)
+  const checkMovieOne = await checkMovie(idUsers, idMovie)
+  if (checkMovieOne.length == 0) {
+    const peticion = await consulta(null, idMovie)
+    const {title, image, genres, year, runtimeStr, directors} = peticion
+    const data = await addMovieConnect(idMovie, idUsers,title, image, genres, year, runtimeStr, directors)
   
-  const {title, image, genres, year, runtimeStr, directors} = peticion
-  const data = await addMovieConnect(idMovie, idUsers,title, image, genres, year, runtimeStr, directors)
-
-  res.redirect('http://localhost:3000/search/?pag=1&query=matrix')
+  } else {
+    //aqui ya tiene la película
+  }
+  
+  res.redirect('/movies')
 }
 
 
@@ -81,5 +104,7 @@ module.exports = {
   getIndex,
   getSignup,
   getSearch,
-  addMovie
+  addMovie,
+  myMovies,
+  removeMovie
 }

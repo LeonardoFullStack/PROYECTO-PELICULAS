@@ -15,7 +15,16 @@ updateUser:`UPDATE users
             WHERE email=$1`,
 addMovie:`INSERT INTO favs(idfilms,idUsers,title,image,gender,year,length,direction)
           VALUES
-          ($1, $2, $3, $4, $5, $6, $7, $8) `
+          ($1, $2, $3, $4, $5, $6, $7, $8) `,
+checkMovie: `SELECT *
+             FROM favs
+             WHERE idUsers=$1 AND idfilms=$2`,
+myMovies:`SELECT *
+          FROM favs
+          WHERE idUsers=$1`,
+removeMovie:`DELETE 
+             FROM favs
+             WHERE idusers=$1 AND idfilms=$2`
  
 }
 
