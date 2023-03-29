@@ -4,7 +4,8 @@ CREATE TABLE users (
   name varchar(45) NOT NULL, 
   password varchar(255) NOT NULL, 
   email varchar(100) NOT NULL UNIQUE,
-  image varchar(255)
+  image varchar(255),
+
 );
 --TITULO IMAGEN GENERO AÑO DURACION DIRECTOR
 CREATE TABLE favs (

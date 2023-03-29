@@ -4,8 +4,6 @@ const {consulta}=require('../helpers/fecthPropia')
 
 const mostrarPeliculas = async (req, res) => {
 
-
-
     const respuesta = await consulta("/peliculas", 'get');
 
     const {data} = await respuesta.json()
@@ -21,19 +19,14 @@ const mostrarPeliculas = async (req, res) => {
 const formActualizar=async(req,res)=>{
     
     try {
-
         const id=req.params.id
-
        const url=`/peliculas/${id}`
-       
         const respuesta= await consulta(url,'get')
-
         const unaPelicula= await respuesta.json()
 
-      
-        
         res.render('../views/admin/actualizarPelis',{
-           pelicula:unaPelicula
+            titulo: 'Editar película',
+            pelicula:unaPelicula
         })
          
     } catch (error) {
@@ -62,8 +55,9 @@ const actualizar= async(req,res)=>{
     
 }
 const formCrear=(req,res)=>{
-
-    res.render('./admin/crearPelicula')
+    res.render('./admin/crearPelicula',{
+        titulo: 'Crear película'
+    })
 
 }
 const crear= async(req,res)=>{

@@ -13,13 +13,8 @@ const checkLogin = async (req, res) => {
     let userData, passwordOk, token
     try {
         userData = await getUserConnect(req.body.email)
-
-
         passwordOk = bcrypt.compareSync(req.body.password, userData[0].password)
        
-
-
-
     } catch (error) {
         res.render('index', {
             titulo: 'Error al identificar',
@@ -30,7 +25,6 @@ const checkLogin = async (req, res) => {
     if (passwordOk) {
 
         token = await generarJwt(userData[0].id, userData[0].name)
-        
         
         res.cookie('xtoken', token)
 

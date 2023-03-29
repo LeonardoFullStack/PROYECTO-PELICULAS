@@ -2,9 +2,9 @@ const consulta = async (titulo, id) => {
   let ruta;
   
   if  (id) {
-      ruta=`https://imdb-api.com/en/API/Title/k_igkxkgas/${id}`
+      ruta=`https://imdb-api.com/en/API/Title/k_i7k30hf4/${id}`
     } else if (titulo && id == null) {
-      ruta=`https://imdb-api.com/API/AdvancedSearch/k_igkxkgas/?title=${titulo}`
+      ruta=`https://imdb-api.com/API/AdvancedSearch/k_i7k30hf4/?title=${titulo}`
     }
     try {
 

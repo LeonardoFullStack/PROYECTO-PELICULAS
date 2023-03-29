@@ -14,10 +14,7 @@ router.post('/createMovie',crear)
 //* ACTUALIZAR PELICULA
 
 router.get('/editMovies/:id',formActualizar)
-
 router.post('/editMovie/:id',actualizar)
-
-
 
 //*ELIMINAR
 

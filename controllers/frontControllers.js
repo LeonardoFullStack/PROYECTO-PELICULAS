@@ -61,7 +61,7 @@ const addMovie =async  (req,res) => {
 }
 
 
-
+/*    Pintar vista search.ejs de ruta /search/?   */
 const getSearch = async (req, res) => {
   const busqueda = req.query.query
   const pag = req.query.pag //esto hay que ponerlo bien
